@@ -24,16 +24,18 @@ public class isLoggedBDBlackTest {
         sut.isRegistered("seller1@shop.com", "seller1", "123");
     }
 
-
+    
+    // PK1: estalitako BK= 1,2,3 
     @Test
-    public void testPK1_ValidSellerAndPass() {
+    public void testIsLogged_ValidSellerAndPass() {
         Emaitza res = sut.isLogged("seller1", "123");
         assertTrue(res.getLog());
         assertEquals("seller1@shop.com", res.getEmail());
     }
-
+    
+    //PK2: estalitako BK = 1,2,4
     @Test
-    public void testPK2_ValidSellerWrongPass() {
+    public void testIsLogged_ValidSellerWrongPass() {
         Emaitza res = sut.isLogged("seller1", "wrongpass");
         assertFalse(res.getLog());
         assertNull(res.getSeller());
@@ -41,9 +43,10 @@ public class isLoggedBDBlackTest {
         assertEquals("",res.getEmail());
     }
     
-  
+    
+    //PK3: estalitako BK = 5
     @Test
-    public void testPK3_NullLog() {
+    public void testIsLogged_NullLog() {
         Emaitza res = sut.isLogged(null, "1234");
         assertFalse(res.getLog());
         assertNull(res.getAdmin());
@@ -51,9 +54,9 @@ public class isLoggedBDBlackTest {
         assertEquals("", res.getEmail());
     }
 
-
+    //PK4: estalitako BK = 6
     @Test
-    public void testPK4_NullPass() {
+    public void testIsLogged_NullPass() {
         Emaitza res = sut.isLogged("seller1", null);
         assertFalse(res.getLog());
         assertNull(res.getSeller());

@@ -29,7 +29,7 @@ public class isLoggedMockBlackTest {
 
     // PK1 (BK 1, 2, 3): ("seller1", "123") -> Emaitza(true, "seller1@shop.com", sellerObj, null)
     @Test
-    public void testPK1_ValidSellerAndPass() {
+    public void testIsLogged_ValidSeller() {
         String log = "seller1";
         String pass = "123";
 
@@ -38,8 +38,8 @@ public class isLoggedMockBlackTest {
         list.add(seller);
 
         Mockito.when(db.createQuery(Mockito.anyString(), Mockito.eq(Seller.class))).thenReturn(query);
-        Mockito.when(query.setParameter(1, log)).thenReturn(query);
-        Mockito.when(query.setParameter(2, pass)).thenReturn(query);
+        //Mockito.when(query.setParameter(1, log)).thenReturn(query);
+        //Mockito.when(query.setParameter(2, pass)).thenReturn(query);
         Mockito.when(query.getResultList()).thenReturn(list);
 
         Emaitza res = sut.isLogged(log, pass);
@@ -52,15 +52,15 @@ public class isLoggedMockBlackTest {
 
     // PK2 (BK 1, 2, 4): ("seller1", "wrongpass") -> Emaitza(false, "", null, null)
     @Test
-    public void testPK2_ValidSellerWrongPass() {
+    public void testIsLogged_ValidSellerWrongPass() {
         String log = "seller1";
         String pass = "wrongpass";
 
         List<Seller> emptyList = new ArrayList<>();
 
         Mockito.when(db.createQuery(Mockito.anyString(), Mockito.eq(Seller.class))).thenReturn(query);
-        Mockito.when(query.setParameter(1, log)).thenReturn(query);
-        Mockito.when(query.setParameter(2, pass)).thenReturn(query);
+        //Mockito.when(query.setParameter(1, log)).thenReturn(query);
+        //Mockito.when(query.setParameter(2, pass)).thenReturn(query);
         Mockito.when(query.getResultList()).thenReturn(emptyList);
 
         Emaitza res = sut.isLogged(log, pass);
@@ -74,7 +74,7 @@ public class isLoggedMockBlackTest {
 
     // PK3 (BK 5): (null, "1234") -> Emaitza(false, "", null, null)
     @Test
-    public void testPK3_NullLog() {
+    public void testIsLogged_NullLog() {
         Emaitza res = sut.isLogged(null, "1234");
 
         assertNotNull(res);
@@ -86,7 +86,7 @@ public class isLoggedMockBlackTest {
 
     // PK4 (BK 6): ("seller1", null) -> Emaitza(false, "", null, null)
     @Test
-    public void testPK4_NullPass() {
+    public void testIsLogged_NullPass() {
         Emaitza res = sut.isLogged("seller1", null);
 
         assertNotNull(res);
